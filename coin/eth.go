@@ -81,7 +81,7 @@ func (coin *EthCoin) Ping() error {
 // MonitorDifferences monitor differences between current node and other api service
 func (coin *EthCoin) MonitorDifferences(gauge prometheus.Gauge) {
 	var ethSyncResponse EthSyncResponse
-	err := coin.client.Call(&ethSyncResponse, "eth_syncing")
+	err := coin.client.Call(&ethSyncResponse, "eth_blockNumber")
 	if err != nil {
 		log.Println(err)
 		return
