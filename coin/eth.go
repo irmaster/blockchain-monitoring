@@ -10,8 +10,8 @@ import (
 
 //EthSyncResponse ethereum sync response body
 type EthSyncResponse struct {
-	Current string `json:"currentBlock"`
-	Highest string `json:"highestBlock"`
+	Current string `json:"result"`
+	//Highest string `json:"highestBlock"`
 }
 
 // EthCoin eth coin client instance
