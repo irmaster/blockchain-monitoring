@@ -10,8 +10,8 @@ import (
 
 //EthSyncResponse ethereum sync response body
 type EthSyncResponse struct {
-	Current string `json:"result"`
-	//Highest string `json:"highestBlock"`
+	Current string `json:"currentBlock"`
+	Highest string `json:"highestBlock"`
 }
 
 // EthCoin eth coin client instance
@@ -34,7 +34,7 @@ func NewEthCoin(url string, network NetworkType) (*EthCoin, error) {
 func (coin *EthCoin) getBlockCount() (int64, error) {
 	var result string
 
-	err := coin.client.Call(&result, "eth_blockNumber")
+	err := coin.client.Call(&result, "eth_syncing")
 	if err != nil {
 		return 0, err
 	}
@@ -81,7 +81,7 @@ func (coin *EthCoin) Ping() error {
 // MonitorDifferences monitor differences between current node and other api service
 func (coin *EthCoin) MonitorDifferences(gauge prometheus.Gauge) {
 	var ethSyncResponse EthSyncResponse
-	err := coin.client.Call(&ethSyncResponse, "eth_blockNumber")
+	err := coin.client.Call(&ethSyncResponse, "eth_syncing")
 	if err != nil {
 		log.Println(err)
 		return
